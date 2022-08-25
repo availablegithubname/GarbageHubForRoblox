@@ -1,2 +1,3 @@
 best bedwars scripts!
-.crash <name> to crash someone!!
+server crasher and more!
+garbage community: dsc.gg/garbagehub
