@@ -1,2 +1,2 @@
-best bedwars scripts! \n
+best bedwars scripts!
 garbage community: https://dsc.gg/garbagehub
