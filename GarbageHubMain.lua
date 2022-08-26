@@ -1,3 +1,4 @@
+if shared.Garbage then return end
 shared.Garbage = {}
 shared.Garbage.Target = nil
 repeat wait() until game:IsLoaded()
