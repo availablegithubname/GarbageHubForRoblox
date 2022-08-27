@@ -1,2 +1,2 @@
-best bedwars scripts!
-garbage community: https://dsc.gg/garbagehub
+Tip tier Roblox BedWars scripts! 
+halal Garbage community: https://discord.gg/gbh
