@@ -12,6 +12,8 @@ game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
     if sender == game.Players.LocalPlayer and string.find(string.lower(msg), ".crash") then
         shared.Garbage.Target = game.Players:FindFirstChild(msg:split(' ')[2])
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("OP PLAYER CRASHER BY DISSORD.GG/GBH","All")
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("DISSORD.GG/GBH - ONLY PUBLIC CRASHER","All")
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("DISSORD.GG/GBH - FREE CRASH SCRIPT","All")
         handler.c()
     end
 end)
