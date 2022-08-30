@@ -3,10 +3,11 @@ repeat wait() until workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 if shared.Garbage then return end
 shared.Garbage = {}
 shared.Garbage.Target = nil
-local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
+local queueteleport = syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
 local handler = loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/garbage.lua"))()
 queueteleport(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
+game:GetService("ReplicatedStorage"):FindFirstChild("functions-@easy-games/lobby:shared/lobby-networking@getFunctions.Functions"):FindFirstChild("c:receivedPartyInvite"):Destroy() -- skid can no crash!
 handler.e()
 game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
     if sender == game.Players.LocalPlayer and string.find(string.lower(msg), ".crash") then
