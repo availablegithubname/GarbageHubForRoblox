@@ -8,7 +8,6 @@ local handler = loadstring(game:HttpGet("https://raw.githubusercontent.com/avail
 queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
 handler.e()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/halal.lua"))()
 game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
     if sender == game.Players.LocalPlayer and string.find(string.lower(msg), ".crash") then
         shared.Garbage.Target = game.Players:FindFirstChild(msg:split(' ')[2])
