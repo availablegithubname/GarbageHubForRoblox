@@ -1,5 +1,5 @@
 repeat wait() until game:IsLoaded()
-repeat wait() until workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+wait(5)
 if shared.Garbage then return end
 shared.Garbage = {}
 shared.Garbage.Target = nil
