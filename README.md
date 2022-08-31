@@ -1,2 +1,1 @@
-Top tier Roblox BedWars scripts! 
-halal Garbage community: https://discord.gg/gbh
+#1 non skidder crasher :pray: https://discord.gg/gbh
