@@ -3,7 +3,7 @@ repeat wait() until workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 if shared.Garbage then return end
 shared.Garbage = {}
 shared.Garbage.Target = nil
-local queueteleport = syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
+local queueteleport = syn.queue_on_teleport or queue_on_teleport or fluxus.queue_on_teleport or function() end
 local handler = loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/garbage.lua"))()
 queueteleport(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
