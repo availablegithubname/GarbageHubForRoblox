@@ -12,20 +12,9 @@ game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
     if sender == game.Players.LocalPlayer and string.find(string.lower(msg), ".crash") then
         shared.Garbage.Target = game.Players:FindFirstChild(msg:split(' ')[2])
         if shared.Garbage.Target then
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("⚪⚪⚪⚪⚪ .","All")
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("⚫🔴⚫⚫⚫ G","All")
-            wait(0.05)
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("⚫🔴⚫🔴🔴 G","All")
-            wait(0.05)
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("⚫⚫⚫⚫⚫ /","All")
-            wait(0.05)
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("🔴🔴⚫🔴⚫ G","All")
-            wait(0.05)
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("⚫⚫⚫🔴⚫ B","All")
-            wait(0.05)
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("⚪⚪⚪⚪⚪ H","All")
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("JOIN DISSORD.GG/GBH FOR OP CRASH SCRIPTS","All")
             handler.c()
-            else
+        else
             game.StarterGui:SetCore("SendNotification",{Title = "Crash Failed",Text = "Player does not exist."})
         end
         if msg:split(' ')[2] == "me" then game:Shutdown() end -- OP CLIENTSIDE CRASHER :SCREAM:
