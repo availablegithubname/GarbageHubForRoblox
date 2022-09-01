@@ -8,10 +8,11 @@ function download()
         Method = "GET"
     })
     writefile("Garbage/halal.mp3",thing.Body)
+    end
 end
 return {
   e = function()
-        if not customasset("Garbage/halal.mp3") then download() end
+        if not isfile("Garbage/halal.mp3") then download() end
         local sound = Instance.new("Sound", game.CoreGui)
         sound.Looped = true
         sound.SoundId = customasset("Garbage/halal.mp3")
