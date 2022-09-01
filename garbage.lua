@@ -1,6 +1,6 @@
 if not shared.Garbage then loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))() return end
 if not isfolder("Garbage") then makefolder("Garbage") end
-local request = syn.request or http.request or http_request or fluxus.request or request or function() end
+local request = syn.request or http.request or http_request or fluxus.request function() end
 local customasset = getsynasset or getcustomasset or function() end
 return {
     e = function()
