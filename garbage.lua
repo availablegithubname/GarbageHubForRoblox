@@ -4,10 +4,10 @@ local request = syn.request or request or fluxus.request or function() return en
 local customasset = getsynasset or getcustomasset or function() return end
 return {
   e = function()
-      local thing = request({
-				Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
-				Method = "GET"
-			})
+     local thing = request({
+	Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
+	Method = "GET"
+	})
       writefile("Garbage/halal.mp3",thing)
       local sound = Instance.new("Sound", game.CoreGui)
       sound.SoundId = customasset("Garbage/halal.mp3")
