@@ -1,7 +1,8 @@
 repeat wait() until game:IsLoaded()
 if shared.Garbage then return end
-shared.Garbage = {}
-shared.Garbage.Target = nil
+shared.Garbage = {
+    Target = nil   
+}
 local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
 local handler = loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/garbage.lua"))()
 queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
