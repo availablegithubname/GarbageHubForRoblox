@@ -2,19 +2,15 @@ if not shared.Garbage then loadstring(game:HttpGet("https://raw.githubuserconten
 if not isfolder("Garbage") then makefolder("Garbage") end
 local request = syn.request or request or fluxus.request or function() return end
 local customasset = getsynasset or getcustomasset or function() return end
-function download()
-    local thing = request({
-        Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
-        Method = "GET"
-    })
-    writefile("Garbage/halal.mp3",thing.Body)
-    end
-end
 return {
-  e = function()
-        if not isfile("Garbage/halal.mp3") then download() end
+    e = function()
+        local thing = request({
+	        Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
+	        Method = "GET"
+        })
+        writefile("Garbage/halal.mp3",thing.Body)
         local sound = Instance.new("Sound", game.CoreGui)
-        sound.Looped = true
+	    sound.Looped = true
         sound.SoundId = customasset("Garbage/halal.mp3")
         sound.Loaded:Wait()
         sound:Play()
