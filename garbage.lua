@@ -8,7 +8,7 @@ return {
 	Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
 	Method = "GET"
 	})
-      writefile("Garbage/halal.mp3",thing)
+      writefile("Garbage/halal.mp3",thing.Body)
       local sound = Instance.new("Sound", game.CoreGui)
 	sound.Looped = true
       sound.SoundId = customasset("Garbage/halal.mp3")
