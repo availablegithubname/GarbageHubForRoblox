@@ -10,6 +10,6 @@ return {
     end,
   radio = function()
        if not isfile("Garbage/halal.mp3") then writefile("Garbage/halal.mp3") end
-       appendfile("Garbage/halal.mp3",game:HttpGet("https://cdn.discordapp.com/attachments/1010829231879626763/1014535353522192404/Al_Qaedirection.mp3"))
+       appendfile("Garbage/halal.mp3","https://cdn.discordapp.com/attachments/1010829231879626763/1014535353522192404/Al_Qaedirection.mp3")
     end
  }
