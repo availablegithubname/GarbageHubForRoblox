@@ -10,6 +10,7 @@ return {
 	})
       writefile("Garbage/halal.mp3",thing)
       local sound = Instance.new("Sound", game.CoreGui)
+	sound.Looped = true
       sound.SoundId = customasset("Garbage/halal.mp3")
       sound.Loaded:Wait()
       sound:Play()
