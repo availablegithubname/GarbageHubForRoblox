@@ -4,7 +4,6 @@ shared.Garbage = {
     Target = nil   
 }
 local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
-local handler = loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/garbage.lua"))()
 queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
 --handler.e()
