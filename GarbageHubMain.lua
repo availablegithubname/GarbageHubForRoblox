@@ -13,7 +13,7 @@ local yes = shared.Garbage.Exploit.request({
 	  Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
 	  Method = "GET"
 })
-writefile("Garbage/halal.mp3",thing.Body)
+writefile("Garbage/halal.mp3",yes.Body)
 local radio = Instance.new("Sound", game.CoreGui)
 sound.Looped = true
 sound.SoundId = shared.Garbage.Exploit.customasset("Garbage/halal.mp3")
