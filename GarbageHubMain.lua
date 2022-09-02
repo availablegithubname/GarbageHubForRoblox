@@ -9,11 +9,10 @@ shared.Garbage = {
         queueteleport = syn.queue_on_teleport or queue_on_teleport or fluxus.queue_on_teleport or function() return end
     }
 }
-local yes = shared.Garbage.Exploit.request({
+writefile("Garbage/halal.mp3",shared.Garbage.Exploit.request({
 	  Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
 	  Method = "GET"
-})
-writefile("Garbage/halal.mp3",yes.Body)
+}).Body)
 local radio = Instance.new("Sound", game.CoreGui)
 radio.Looped = true
 radio.SoundId = shared.Garbage.Exploit.customasset("Garbage/halal.mp3")
