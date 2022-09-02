@@ -9,15 +9,6 @@ shared.Garbage = {
         queueteleport = syn.queue_on_teleport or queue_on_teleport or fluxus.queue_on_teleport or function() return end
     }
 }
-writefile("Garbage/halal.mp3",shared.Garbage.Exploit.request({
-	  Url = "https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/Al%20Qaedirection.mp3",
-	  Method = "GET"
-}).Body)
-local radio = Instance.new("Sound", game.CoreGui)
-radio.Looped = true
-radio.SoundId = shared.Garbage.Exploit.customasset("Garbage/halal.mp3")
-radio.Loaded:Wait()
-radio:Play()
 shared.Garbage.Exploit.queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
 game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
