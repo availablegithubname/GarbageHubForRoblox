@@ -1,7 +1,7 @@
 return
 if not isfolder("Garbage") then makefolder("Garbage") end
-local request = syn.request or http.request or http_request or fluxus.request function() end
-local customasset = getsynasset or getcustomasset or function() end
+local request = syn.request or http.request or http_request or fluxus.request function() return end
+local customasset = getsynasset or getcustomasset or function() return end
 return {
     e = function()
         local thing = request({
