@@ -1,5 +1,4 @@
 -- Garbage Hub Crasher script for Bedwars (discord.gg/gbh)
-shared.AlQaedirection = true
 repeat wait() until game:IsLoaded()
 if shared.Garbage then game.StarterGui:SetCore("SendNotification",{Title = "Execution failed!",Text = "shared.Garbage is already defined. The script has not been loaded."}) return end
 shared.Garbage = {
