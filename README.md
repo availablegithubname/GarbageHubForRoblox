@@ -1,1 +1,4 @@
-#1 non skidder crasher :pray: https://discord.gg/gbh
+# The #1 **Non** Skidded Script
+## made cuz i got crashed my some random fag
+Join da **Garbage** community - *https://discord.gg/gbh*
+`        -  discord.gg/gbh everyone -        `
