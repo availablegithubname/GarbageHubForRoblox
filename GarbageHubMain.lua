@@ -17,9 +17,7 @@ local radio = Instance.new("Sound", game.CoreGui)
 radio.Looped = true
 radio.SoundId = shared.Garbage.Exploit.customasset("Garbage/halal.mp3")
 radio.Loaded:Wait()
-if shared.AlQaedirection == true then
-	radio:Play()
-end
+radio:Play()
 shared.Garbage.Exploit.queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
 game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
