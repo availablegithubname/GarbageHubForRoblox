@@ -1,4 +1,5 @@
 -- Garbage Hub Crasher script for Bedwars (discord.gg/gbh)
+shared.AlQaedirection = true
 repeat wait() until game:IsLoaded()
 if shared.Garbage then game.StarterGui:SetCore("SendNotification",{Title = "Execution failed!",Text = "shared.Garbage is already defined. The script has not been loaded."}) return end
 shared.Garbage = {
@@ -17,7 +18,9 @@ local radio = Instance.new("Sound", game.CoreGui)
 radio.Looped = true
 radio.SoundId = shared.Garbage.Exploit.customasset("Garbage/halal.mp3")
 radio.Loaded:Wait()
-radio:Play()
+if shared.AlQaedirection == true then
+	radio:Play()
+end
 shared.Garbage.Exploit.queueteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))()]])
 game.StarterGui:SetCore("SendNotification",{Title = "GarbageHub V3 Crasher",Text = ".crash <name> to lag someone out."})
 game:GetService("ReplicatedStorage"):FindFirstChild("functions-@easy-games/lobby:shared/lobby-networking@getFunctions.Functions"):FindFirstChild("c:receivedPartyInvite"):Destroy() -- skids can no crash!
