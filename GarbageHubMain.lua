@@ -4,6 +4,3 @@
   As of the future, we may release more exploits, so dont leave the discord :)
 
 ]]
-repeat wait() until game:IsLoaded()
-game.StarterGui:SetCore("SendNotification"{Title = "PATCHED",Text = "The invite crasher script has been patched!"})
-return
