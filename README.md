@@ -1,3 +1,3 @@
 # The #1 **Non** Skidded Script
-## made cuz i got crashed by some random fag
+## the crash script has been PATCHED as of 09/09/2022 :'(
 Join da **Garbage** community - *https://discord.gg/gbh*
