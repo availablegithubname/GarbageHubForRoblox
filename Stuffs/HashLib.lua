@@ -1,75 +1,9 @@
---------------------------------------------------------------------------------------------------------------------------
--- sha2.lua
---------------------------------------------------------------------------------------------------------------------------
--- VERSION: 12 (2022-02-23)
--- AUTHOR:  Egor Skriptunoff
--- LICENSE: MIT (the same license as Lua itself)
--- URL:     https://github.com/Egor-Skriptunoff/pure_lua_SHA
---
--- DESCRIPTION:
---    This module contains functions to calculate SHA digest:
---       MD5, SHA-1,
---       SHA-224, SHA-256, SHA-512/224, SHA-512/256, SHA-384, SHA-512,
---       SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256,
---       HMAC,
---       BLAKE2b, BLAKE2s, BLAKE2bp, BLAKE2sp, BLAKE2Xb, BLAKE2Xs,
---       BLAKE3, BLAKE3_KDF
---    Written in pure Lua.
---    Compatible with:
---       Lua 5.1, Lua 5.2, Lua 5.3, Lua 5.4, Fengari, LuaJIT 2.0/2.1 (any CPU endianness).
---    Main feature of this module: it was heavily optimized for speed.
---    For every Lua version the module contains particular implementation branch to get benefits from version-specific features.
---       - branch for Lua 5.1 (emulating bitwise operators using look-up table)
---       - branch for Lua 5.2 (using bit32/bit library), suitable for both Lua 5.2 with native "bit32" and Lua 5.1 with external library "bit"
---       - branch for Lua 5.3/5.4 (using native 64-bit bitwise operators)
---       - branch for Lua 5.3/5.4 (using native 32-bit bitwise operators) for Lua built with LUA_INT_TYPE=LUA_INT_INT
---       - branch for LuaJIT without FFI library (useful in a sandboxed environment)
---       - branch for LuaJIT x86 without FFI library (LuaJIT x86 has oddity because of lack of CPU registers)
---       - branch for LuaJIT 2.0 with FFI library (bit.* functions work only with Lua numbers)
---       - branch for LuaJIT 2.1 with FFI library (bit.* functions can work with "int64_t" arguments)
---
---
--- USAGE:
---    Input data should be provided as a binary string: either as a whole string or as a sequence of substrings (chunk-by-chunk loading, total length < 9*10^15 bytes).
---    Result (SHA digest) is returned in hexadecimal representation as a string of lowercase hex digits.
---    Simplest usage example:
---       local sha = require("sha2")
---       local your_hash = sha.sha256("your string")
---    See file "sha2_test.lua" for more examples.
---
---
--- CHANGELOG:
---  version     date      description
---  -------  ----------   -----------
---    12     2022-02-23   Now works in Luau (but NOT optimized for speed)
---    11     2022-01-09   BLAKE3 added
---    10     2022-01-02   BLAKE2 functions added
---     9     2020-05-10   Now works in OpenWrt's Lua (dialect of Lua 5.1 with "double" + "invisible int32")
---     8     2019-09-03   SHA-3 functions added
---     7     2019-03-17   Added functions to convert to/from base64
---     6     2018-11-12   HMAC added
---     5     2018-11-10   SHA-1 added
---     4     2018-11-03   MD5 added
---     3     2018-11-02   Bug fixed: incorrect hashing of long (2 GByte) data streams on Lua 5.3/5.4 built with "int32" integers
---     2     2018-10-07   Decreased module loading time in Lua 5.1 implementation branch (thanks to Peter Melnichenko for giving a hint)
---     1     2018-10-06   First release (only SHA-2 functions)
------------------------------------------------------------------------------
-
-
-local print_debug_messages = false  -- set to true to view some messages about your system's abilities and implementation branch chosen for your system
+local print_debug_messages = false
 
 local unpack, table_concat, byte, char, string_rep, sub, gsub, gmatch, string_format, floor, ceil, math_min, math_max, tonumber, type, math_huge =
    table.unpack or unpack, table.concat, string.byte, string.char, string.rep, string.sub, string.gsub, string.gmatch, string.format, math.floor, math.ceil, math.min, math.max, tonumber, type, math.huge
 
-
---------------------------------------------------------------------------------
--- EXAMINING YOUR SYSTEM
---------------------------------------------------------------------------------
-
 local function get_precision(one)
-   -- "one" must be either float 1.0 or integer 1
-   -- returns bits_precision, is_integer
-   -- This function works correctly with all floating point datatypes (including non-IEEE-754)
    local k, n, m, prev_n = 0, one, one
    while true do
       k, prev_n, n, m = k + 1, n, n + n + 1, m + m + k % 2
@@ -80,43 +14,13 @@ local function get_precision(one)
       end
    end
 end
-
--- Make sure Lua has "double" numbers
 local x = 2/3
 local Lua_has_double = x * 5 > 3 and x * 4 < 3 and get_precision(1.0) >= 53
 assert(Lua_has_double, "at least 53-bit floating point numbers are required")
-
--- Q:
---    SHA2 was designed for FPU-less machines.
---    So, why floating point numbers are needed for this module?
--- A:
---    53-bit "double" numbers are useful to calculate "magic numbers" used in SHA.
---    I prefer to write 50 LOC "magic numbers calculator" instead of storing more than 200 constants explicitly in this source file.
-
 local int_prec, Lua_has_integers = get_precision(1)
 local Lua_has_int64 = Lua_has_integers and int_prec == 64
 local Lua_has_int32 = Lua_has_integers and int_prec == 32
 assert(Lua_has_int64 or Lua_has_int32 or not Lua_has_integers, "Lua integers must be either 32-bit or 64-bit")
-
--- Q:
---    Does it mean that almost all non-standard configurations are not supported?
--- A:
---    Yes.  Sorry, too many problems to support all possible Lua numbers configurations.
---       Lua 5.1/5.2    with "int32"               will not work.
---       Lua 5.1/5.2    with "int64"               will not work.
---       Lua 5.1/5.2    with "int128"              will not work.
---       Lua 5.1/5.2    with "float"               will not work.
---       Lua 5.1/5.2    with "double"              is OK.          (default config for Lua 5.1, Lua 5.2, LuaJIT)
---       Lua 5.3/5.4    with "int32"  + "float"    will not work.
---       Lua 5.3/5.4    with "int64"  + "float"    will not work.
---       Lua 5.3/5.4    with "int128" + "float"    will not work.
---       Lua 5.3/5.4    with "int32"  + "double"   is OK.          (config used by Fengari)
---       Lua 5.3/5.4    with "int64"  + "double"   is OK.          (default config for Lua 5.3, Lua 5.4)
---       Lua 5.3/5.4    with "int128" + "double"   will not work.
---   Using floating point numbers better than "double" instead of "double" is OK (non-IEEE-754 floating point implementation are allowed).
---   Using "int128" instead of "int64" is not OK: "int128" would require different branch of implementation for optimized SHA512.
-
--- Check for LuaJIT and 32-bit bitwise libraries
 local is_LuaJIT = ({false, [1] = true})[1] and _VERSION ~= "Luau" and (type(jit) ~= "table" or jit.version_num >= 20000)  -- LuaJIT 1.x.x and Luau are treated as vanilla Lua 5.1/5.2
 local is_LuaJIT_21  -- LuaJIT 2.1+
 local LuaJIT_arch
@@ -146,26 +50,12 @@ else
    end
 end
 
---------------------------------------------------------------------------------
--- You can disable here some of your system's abilities (for testing purposes)
---------------------------------------------------------------------------------
--- is_LuaJIT = nil
--- is_LuaJIT_21 = nil
--- ffi = nil
--- Lua_has_int32 = nil
--- Lua_has_int64 = nil
--- b, library_name = nil
---------------------------------------------------------------------------------
-
 if print_debug_messages then
-   -- Printing list of abilities of your system
    print("Abilities:")
    print("   Lua version:               "..(is_LuaJIT and "LuaJIT "..(is_LuaJIT_21 and "2.1 " or "2.0 ")..(LuaJIT_arch or "")..(ffi and " with FFI" or " without FFI") or _VERSION))
    print("   Integer bitwise operators: "..(Lua_has_int64 and "int64" or Lua_has_int32 and "int32" or "no"))
    print("   32-bit bitwise library:    "..(library_name or "not found"))
 end
-
--- Selecting the most suitable implementation for given set of abilities
 local method, branch
 if is_LuaJIT and ffi then
    method = "Using 'ffi' library of LuaJIT"
@@ -188,22 +78,11 @@ else
 end
 
 if print_debug_messages then
-   -- Printing the implementation selected to be used on your system
    print("Implementation selected:")
    print("   "..method)
 end
 
-
---------------------------------------------------------------------------------
--- BASIC 32-BIT BITWISE FUNCTIONS
---------------------------------------------------------------------------------
-
 local AND, OR, XOR, SHL, SHR, ROL, ROR, NOT, NORM, HEX, XOR_BYTE
--- Only low 32 bits of function arguments matter, high bits are ignored
--- The result of all functions (except HEX) is an integer inside "correct range":
---    for "bit" library:    (-2^31)..(2^31-1)
---    for "bit32" library:        0..(2^32-1)
-
 if branch == "FFI" or branch == "LJ" or branch == "LIB32" then
 
    -- Your system has 32-bit bitwise library (either "bit" or "bit32")
